@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+
+/**
+ * main - prints a quote using puts
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+	pintf("with proper grammar, but the outcome is a piece of art,");
+	return (0);
+}
