@@ -1,1 +1,5 @@
-This is a README for the directory.
+# Holberton School Low Level Programming :school::apple:
+>
+## Basics :point_up::nerd_face:
+>
+In this repository we go through more functions and nested loops.
