@@ -4,38 +4,47 @@
 
 /**
  * print_all - prints anything
- * @format: list of types of arguments
+ * @format: list of argument types
  *
  * Return: nothing
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
-	char *s;
-	char *sep = "";
 	va_list args;
+	unsigned int i;
+	char *sep;
+	char *str;
 
 	va_start(args, format);
+	i = 0;
+	sep = "";
 
 	while (format && format[i])
 	{
-		if (format[i] == 'c')
-			printf("%s%c", sep, va_arg(args, int)), sep = ", ";
-		if (format[i] == 'i')
-			printf("%s%d", sep, va_arg(args, int)), sep = ", ";
-		if (format[i] == 'f')
-			printf("%s%f", sep, va_arg(args, double)), sep = ", ";
-		if (format[i] == 's')
+		switch (format[i])
 		{
-			s = va_arg(args, char *);
-			if (!s)
-				s = "(nil)";
-			printf("%s%s", sep, s);
-			sep = ", ";
+			case 'c':
+				printf("%s%c", sep, va_arg(args, int));
+				sep = ", ";
+				break;
+			case 'i':
+				printf("%s%d", sep, va_arg(args, int));
+				sep = ", ";
+				break;
+			case 'f':
+				printf("%s%f", sep, va_arg(args, double));
+				sep = ", ";
+				break;
+			case 's':
+				str = va_arg(args, char *);
+				if (str == NULL)
+					str = "(nil)";
+				printf("%s%s", sep, str);
+				sep = ", ";
+				break;
 		}
 		i++;
 	}
-
 	printf("\n");
 	va_end(args);
 }
