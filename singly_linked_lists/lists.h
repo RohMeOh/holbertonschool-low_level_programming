@@ -3,6 +3,12 @@
 
 #include <stddef.h>
 
+/**
+ * struct list_s - singly linked list
+ * @str: string stored in the node
+ * @len: length of the string
+ * @next: points to the next node
+ */
 typedef struct list_s
 {
 	char *str;
@@ -10,7 +16,6 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
-/* Function prototype */
 size_t print_list(const list_t *h);
 
 #endif
