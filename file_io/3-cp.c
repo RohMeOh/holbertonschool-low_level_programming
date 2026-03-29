@@ -12,13 +12,13 @@ void close_fd(int fd)
 {
 	if (close(fd) == -1)
 	{
-		dprintf(1, "Error: Can't close fd %d\n", fd);
+		dprintf(2, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
 }
 
 /**
- * main - copies content of a file to another file
+ * main - copies content from one file to another
  * @argc: number of arguments
  * @argv: argument vector
  *
@@ -31,14 +31,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		dprintf(1, "Usage: cp file_from file_to\n");
+		dprintf(2, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
 	fd_from = open(argv[1], O_RDONLY);
 	if (fd_from == -1)
 	{
-		dprintf(1, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
 
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	if (fd_to == -1)
 	{
 		close_fd(fd_from);
-		dprintf(1, "Error: Can't write to %s\n", argv[2]);
+		dprintf(2, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 		{
 			close_fd(fd_from);
 			close_fd(fd_to);
-			dprintf(1, "Error: Can't write to %s\n", argv[2]);
+			dprintf(2, "Error: Can't write to %s\n", argv[2]);
 			exit(99);
 		}
 		rd = read(fd_from, buffer, 1024);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	{
 		close_fd(fd_from);
 		close_fd(fd_to);
-		dprintf(1, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
 
