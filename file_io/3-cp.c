@@ -26,7 +26,7 @@ void close_fd(int fd)
  */
 int main(int argc, char *argv[])
 {
-	int fd_from, fd_to, rd, wr;
+	int fd_from, fd_to, rd, wr, total, offset;
 	char buffer[1024];
 
 	if (argc != 3)
@@ -53,14 +53,23 @@ int main(int argc, char *argv[])
 	rd = read(fd_from, buffer, 1024);
 	while (rd > 0)
 	{
-		wr = write(fd_to, buffer, rd);
-		if (wr == -1)
+		total = 0;
+		offset = 0;
+
+		while (total < rd)
 		{
-			close_fd(fd_from);
-			close_fd(fd_to);
-			dprintf(2, "Error: Can't write to %s\n", argv[2]);
-			exit(99);
+			wr = write(fd_to, buffer + offset, rd - total);
+			if (wr == -1)
+			{
+				close_fd(fd_from);
+				close_fd(fd_to);
+				dprintf(2, "Error: Can't write to %s\n", argv[2]);
+				exit(99);
+			}
+			total += wr;
+			offset += wr;
 		}
+
 		rd = read(fd_from, buffer, 1024);
 	}
 
